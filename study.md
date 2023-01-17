@@ -126,3 +126,54 @@ function hello(): never {
   throw new Error("zzz");
 }
 ```
+
+## Function
+
+### Call Signatures
+
+- 함수의 매개 변수와 반환 타입을 미리 선언
+
+```typescript
+type Add = (a: number, b: number) => number;
+
+const add: Add = (a, b) => a + b;
+```
+
+### Overloading
+
+- 직접 작성하기보다는 외부 라이브러리에 자주 보이는 형태
+- 하나의 함수가 복수의 Call Signature를 가질 때 발생
+
+```typescript
+type Add = {
+  (a: number, b: number): number;
+  (a: number, b: string): number;
+};
+
+const add: Add = (a, b) => {
+  if (typeof b === "string") return a;
+  return a + b;
+};
+```
+
+### Polymorphism
+
+- 인자들과 반환 값에 대하여 형태(타입)에 따라 그에 상응하는 형태(타입)를 가질 수 있음
+
+```typescript
+type SuperPrint = {
+  <T>(arr: T[]): void;
+};
+```
+
+### Generics
+
+- **제네릭은 선언 시점이 아니라 생성 시점에 타입을 명시하여 하나의 타입만이 아닌 다양한 타입을 사용할 수 있도록 하는 기법**
+- 재사용 가능한 컴포넌트를 만들기 위해 사용하는 기법(위의 Polymorphism과 한 몸이라 생각)
+- 제네릭을 처음 인식했을 때와 제네릭의 순서를 기반으로 제네릭 타입을 알게됨
+- any와의 차이점 : 타입스크립트의 타입 체커로부터 보호를 받을 수 있음(any는 못받음)
+  - 우리가 하는 요청에 따라 call signature를 생성함
+
+```typescript
+type SuperPrint = <T, M>(a: T[], b: M) => T;
+```

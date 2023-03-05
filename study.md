@@ -1,4 +1,4 @@
-# Typescript 이론 정리
+# 📝Typescript 이론 정리
 
 ### Type 정의 방식
 
